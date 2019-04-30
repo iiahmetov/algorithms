@@ -1,8 +1,5 @@
 package Lesson_2;
 
-import sun.awt.datatransfer.DataTransferer;
-
-import java.util.Comparator;
 import java.util.Random;
 
 public class MainClass2 {
@@ -29,23 +26,26 @@ public class MainClass2 {
 //        list.insertionSort(Character::compareTo);
 //        System.out.println(list);
 
-        MyList<Integer> list = new MyList<>();
-        int repeat = 5;
-        int size = 100000;
-        int range = 100000;
-        double averageSortTime = 0;
-        double averageInsertTime = 0;
-        createStandartList(list, size, range);
-        for (int i = 0; i < repeat; i++) {
-            averageSortTime += selectionSortTime(list);
-            averageInsertTime += insertionSortTime(list);
-            System.out.println();
+        MyList<Integer> list = new MyList<>();                              //создал экземпляр списка
+        int repeat = 10;                                                    //количество повторений сортировки списка
+        int size = 100000;                                                  //размер списка
+        int range = 100000;                                                 //диапазон случайных чисел в списке (от 0 до 99999)
+        double totalSelecTime = 0;                                          //счётчик общего времени сортировки выбором
+        double totalInsertTime = 0;                                         //счётчик общего времени сортировки вставкой
+        createStandartList(list, size, range);                              //обращение к методу создания Эталонного списка
+        System.out.printf("№ эксперимента"+ "\t" + "Выбор" + "\t\t" + "Вставка");    //шапка таблицы
+        System.out.println();                                                           //перенос каретки
+        for (int i = 0; i < repeat; i++) {                                  //цикл сортировок
+            System.out.printf((i+1) + "\t\t\t\t");                          //вывод номера сортировки
+            totalSelecTime += selectionSortTime(list);                      //проведение сортировки выбором + увеличение общего времени сортировки выбором на время проведения операции (:
+            totalInsertTime += insertionSortTime(list);                     //проведение сортировки вставкой + увеличение общего времени сортировки вставкой на время проведения операции (:
+            System.out.println();                                           //перенос каретки
         }
-        System.out.println("Среднее время сортировки выбором равно " + averageSortTime/repeat + " секунд, при " + repeat + " повторениях сортировки.");
-        System.out.println("Среднее время сортировки вставкой равно " + averageInsertTime/repeat + " секунд, при " + repeat + " повторениях сортировки.");
+        System.out.println("Среднее время сортировки выбором равно " + totalSelecTime/repeat + " секунд, при " + repeat + " повторениях сортировки.");   //вывод среднего времени сортировки выбором
+        System.out.println("Среднее время сортировки вставкой равно " + totalInsertTime/repeat + " секунд, при " + repeat + " повторениях сортировки.");    //вывод среднего времени сортировки вставкой
     }
 
-    public static MyList createStandartList (MyList list, int size, int range){
+    public static MyList createStandartList (MyList list, int size, int range){     //метод создания эталонного списка
         Random random = new Random();
         for (int i = 0; i < size; i++) {
             list.appendItem(random.nextInt(range));
@@ -53,7 +53,7 @@ public class MainClass2 {
         return list;
     }
 
-    public static MyList copyList (MyList list){
+    public static MyList copyList (MyList list){                                    //метод создания временного списка - точной копии эталонного
         MyList temp = new MyList();
         for (int i = 0; i < list.getSize(); i++) {
             temp.appendItem(list.getItem(i));
@@ -61,31 +61,31 @@ public class MainClass2 {
         return temp;
     }
 
-    public static double selectionSortTime (MyList list){
-        MyList<Integer> list1 = new MyList();
-        long tStart;
-        long tFinish;
-        double opTime;
-        list1 = copyList(list);
-        tStart = System.currentTimeMillis();
-        list1.selectionSort(Integer::compareTo);
-        tFinish = System.currentTimeMillis();
-        opTime = (tFinish - tStart)/1000.0;
-        System.out.printf(opTime + "sec ");
-        return opTime;
+    public static double selectionSortTime (MyList list){                       //метод с сортировкой выбором и вычислением времени данной операции
+        MyList<Integer> list1 = new MyList();                                   //объявляю временный список
+        long tStart;                                                            //время старта сортировки
+        long tFinish;                                                           //время финиша сортировки
+        double opTime;                                                          //время операции
+        list1 = copyList(list);                                                 //копирую данные эталонного списка во временный
+        tStart = System.currentTimeMillis();                                    //фиксирую время старта сортировки
+        list1.selectionSort(Integer::compareTo);                                //провожу сортировку выбором
+        tFinish = System.currentTimeMillis();                                   //фиксирую время финиша сортировки
+        opTime = (tFinish - tStart)/1000.0;                                     //вычисляю время операции сортировки
+        System.out.printf(opTime + "sec" + "\t");                               //вывожу в консоль время
+        return opTime;                                                          //возвращаю время операции сортировки
     }
 
-    public static double insertionSortTime (MyList list){
-        MyList<Integer> list1 = new MyList();
-        long tStart;
-        long tFinish;
-        double opTime;
-        list1 = copyList(list);
-        tStart = System.currentTimeMillis();
-        list1.insertionSort(Integer::compareTo);
-        tFinish = System.currentTimeMillis();
-        opTime = (tFinish - tStart)/1000.0;
-        System.out.printf(opTime + "sec ");
-        return opTime;
+    public static double insertionSortTime (MyList list){                       //метод с сортировкой вставкой и вычислением времени данной операции
+        MyList<Integer> list1 = new MyList();                                   //объявляю временный список
+        long tStart;                                                            //время старта сортировки
+        long tFinish;                                                           //время финиша сортировки
+        double opTime;                                                          //время операции
+        list1 = copyList(list);                                                 //копирую данные эталонного списка во временный
+        tStart = System.currentTimeMillis();                                    //фиксирую время старта сортировки
+        list1.insertionSort(Integer::compareTo);                                //провожу сортировку вставкой
+        tFinish = System.currentTimeMillis();                                   //фиксирую время финиша сортировки
+        opTime = (tFinish - tStart)/1000.0;                                     //вычисляю время операции сортировки
+        System.out.printf(opTime + "sec" + "\t");                               //вывожу в консоль время
+        return opTime;                                                          //возвращаю время операции сортировки
     }
 }
