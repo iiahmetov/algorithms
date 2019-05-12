@@ -3,7 +3,7 @@ package Lesson_2;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class MyList <Item> implements Iterable <Item>{
+public class MyArrayList <Item> implements Iterable <Item>{
     private int size = 0;
     private Object[] list = new Object [1];
 

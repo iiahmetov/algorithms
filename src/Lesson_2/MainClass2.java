@@ -26,7 +26,7 @@ public class MainClass2 {
 //        list.insertionSort(Character::compareTo);
 //        System.out.println(list);
 
-        MyList<Integer> list = new MyList<>();                              //создал экземпляр списка
+        MyArrayList<Integer> list = new MyArrayList<>();                              //создал экземпляр списка
         int repeat = 10;                                                    //количество повторений сортировки списка
         int size = 100000;                                                  //размер списка
         int range = 100000;                                                 //диапазон случайных чисел в списке (от 0 до 99999)
@@ -45,7 +45,7 @@ public class MainClass2 {
         System.out.println("Среднее время сортировки вставкой равно " + totalInsertTime/repeat + " секунд, при " + repeat + " повторениях сортировки.");    //вывод среднего времени сортировки вставкой
     }
 
-    public static MyList createStandartList (MyList list, int size, int range){     //метод создания эталонного списка
+    public static MyArrayList createStandartList (MyArrayList list, int size, int range){     //метод создания эталонного списка
         Random random = new Random();
         for (int i = 0; i < size; i++) {
             list.appendItem(random.nextInt(range));
@@ -53,16 +53,16 @@ public class MainClass2 {
         return list;
     }
 
-    public static MyList copyList (MyList list){                                    //метод создания временного списка - точной копии эталонного
-        MyList temp = new MyList();
+    public static MyArrayList copyList (MyArrayList list){                                    //метод создания временного списка - точной копии эталонного
+        MyArrayList temp = new MyArrayList();
         for (int i = 0; i < list.getSize(); i++) {
             temp.appendItem(list.getItem(i));
         }
         return temp;
     }
 
-    public static double selectionSortTime (MyList list){                       //метод с сортировкой выбором и вычислением времени данной операции
-        MyList<Integer> list1 = new MyList();                                   //объявляю временный список
+    public static double selectionSortTime (MyArrayList list){                       //метод с сортировкой выбором и вычислением времени данной операции
+        MyArrayList<Integer> list1 = new MyArrayList<>();                                   //объявляю временный список
         long tStart;                                                            //время старта сортировки
         long tFinish;                                                           //время финиша сортировки
         double opTime;                                                          //время операции
@@ -75,8 +75,8 @@ public class MainClass2 {
         return opTime;                                                          //возвращаю время операции сортировки
     }
 
-    public static double insertionSortTime (MyList list){                       //метод с сортировкой вставкой и вычислением времени данной операции
-        MyList<Integer> list1 = new MyList();                                   //объявляю временный список
+    public static double insertionSortTime (MyArrayList list){                       //метод с сортировкой вставкой и вычислением времени данной операции
+        MyArrayList<Integer> list1 = new MyArrayList<>();                                   //объявляю временный список
         long tStart;                                                            //время старта сортировки
         long tFinish;                                                           //время финиша сортировки
         double opTime;                                                          //время операции
